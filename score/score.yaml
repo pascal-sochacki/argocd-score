@@ -1,0 +1,14 @@
+apiVersion: score.dev/v1b1
+
+metadata:
+  name: service-a
+
+service:
+  ports:
+    www:
+      port: 8000
+      targetPort: 80
+
+containers:
+  container-id:
+    image: busybox

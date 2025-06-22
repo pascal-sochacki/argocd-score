@@ -1,0 +1,10 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ConfigManagementPlugin
+metadata:
+  name: score-k8s
+spec:
+  version: v1.0
+  generate:
+    command: [score-k8s, run, -f, ./score.yaml, --env, ./.score-env.yaml]
+  discover:
+    fileName: "score.yaml"
