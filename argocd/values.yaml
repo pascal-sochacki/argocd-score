@@ -6,6 +6,9 @@ argo-cd:
     volumes:
       - name: cmp-tmp
         emptyDir: {}
+      - name: score-data
+        persistentVolumeClaim:
+          claimName: argo-score
 
     # -- Additional containers to be added to the repo server pod
     # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/config-management-plugins/
@@ -24,11 +27,13 @@ argo-cd:
           # Mount the same standard volumes as the main repo-server container.
           - mountPath: /var/run/argocd
             name: var-files
+
           - mountPath: /home/argocd/cmp-server/plugins
             name: plugins
           # Mount the dedicated tmp volume.
           # This enhances security by separating the filesystem from the main repo-server.
           - mountPath: /tmp
             name: cmp-tmp
-          # NOTE: We do NOT mount the plugin.yaml from a ConfigMap here
-          # because it was already baked into the Docker image.
+
+          - mountPath: /data
+            name: score-data

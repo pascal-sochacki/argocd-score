@@ -9,6 +9,9 @@ ARG TARGETARCH
 # Install necessary dependencies
 RUN apk add --no-cache curl tar
 
+COPY init.sh /usr/local/bin
+COPY generate.sh /usr/local/bin
+
 # Download and install score-k8s
 RUN curl -L "https://github.com/score-spec/score-k8s/releases/download/${SCORE_K8S_VERSION}/score-k8s_${SCORE_K8S_VERSION}_linux_${TARGETARCH}.tar.gz" | tar xz -C /usr/local/bin
 
