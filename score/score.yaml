@@ -3,12 +3,20 @@ apiVersion: score.dev/v1b1
 metadata:
   name: service-a
 
+containers:
+  hello-world:
+    image: nginx
+    variables:
+      DB_DATABASE: ${resources.db.name}
+      DB_USER: ${resources.db.username}
+      DB_PASSWORD: ${resources.db.password}
+      DB_HOST: ${resources.db.host}
+      DB_PORT: ${resources.db.port}
 service:
   ports:
     www:
-      port: 8000
-      targetPort: 80
-
-containers:
-  container-id:
-    image: nginx
+      port: 8080
+      targetPort: 3000
+resources:
+  db:
+    type: postgres
