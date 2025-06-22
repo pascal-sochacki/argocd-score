@@ -5,7 +5,7 @@ metadata:
 
 containers:
   hello-world:
-    image: nginx
+    image: nginx:1.28
     variables:
       DB_DATABASE: ${resources.db.name}
       DB_USER: ${resources.db.username}
