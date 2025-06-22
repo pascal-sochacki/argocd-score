@@ -4,7 +4,9 @@ metadata:
   name: score-k8s
 spec:
   version: v1.0
+  init:
+    command: [score-k8s, generate, ./score.yaml, --namespace, default]
   generate:
-    command: [score-k8s, run, -f, ./score.yaml, --env, ./.score-env.yaml]
+    command: [cat, manifests.yaml]
   discover:
     fileName: "score.yaml"

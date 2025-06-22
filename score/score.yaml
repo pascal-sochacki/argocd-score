@@ -11,4 +11,4 @@ service:
 
 containers:
   container-id:
-    image: busybox
+    image: nginx

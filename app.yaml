@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-score-app
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: "https://github.com/pascal-sochacki/argocd-score.git"
+    targetRevision: HEAD
+    path: "score"
+    # The 'plugin' block is where we pass parameters to the CMP.
+    plugin:
+      # Environment variables are passed to the 'generate' command.
+      env:
+        # This value would typically be updated by a CI pipeline after
+        # a new container image is built and pushed.
+        - name: IMAGE_TAG
+          value: "v1.2.3"
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
