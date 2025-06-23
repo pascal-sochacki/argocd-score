@@ -1,0 +1,20 @@
+workloads:
+  example:
+    spec:
+      apiVersion: score.dev/v1b1
+      containers:
+        main:
+          image: stefanprodan/podinfo
+        test:
+          image: stefanprodan/podinfo
+      metadata:
+        name: example
+      service:
+        ports:
+          web:
+            port: 8080
+    file: ./score.yaml
+    instance_suffix: -da65c465ce
+resources: {}
+shared_state: {}
+patching_templates: []

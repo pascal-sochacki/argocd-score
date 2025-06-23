@@ -1,0 +1,12 @@
+apiVersion: score.dev/v1b1
+containers:
+  main:
+    image: stefanprodan/podinfo
+  test:
+    image: stefanprodan/podinfo
+metadata:
+  name: example
+service:
+  ports:
+    web:
+      port: 8080

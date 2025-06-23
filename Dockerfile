@@ -5,12 +5,17 @@ FROM alpine:3.20
 # Set the version of score-k8s to install
 ARG SCORE_K8S_VERSION=0.5.2
 ARG TARGETARCH
+ARG KUBECTL_VERSION=v1.29.0
 
 # Install necessary dependencies
 RUN apk add --no-cache curl tar
 
 COPY init.sh /usr/local/bin
 COPY generate.sh /usr/local/bin
+
+RUN curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl" && \
+    chmod +x ./kubectl && \
+    mv ./kubectl /usr/local/bin/kubectl
 
 # Download and install score-k8s
 RUN curl -L "https://github.com/score-spec/score-k8s/releases/download/${SCORE_K8S_VERSION}/score-k8s_${SCORE_K8S_VERSION}_linux_${TARGETARCH}.tar.gz" | tar xz -C /usr/local/bin

@@ -1,14 +1,21 @@
 argo-cd:
   # Values to enable the score-k8s CMP sidecar in the Argo CD Helm chart
   repoServer:
+    rbac:
+      - apiGroups:
+          - ""
+        resources:
+          - secrets
+        verbs:
+          - get
+          - patch
+          - create
+
     # -- Additional volumes to the repo server pod
     # We need to add a dedicated tmp volume for our CMP sidecar
     volumes:
       - name: cmp-tmp
         emptyDir: {}
-      - name: score-data
-        persistentVolumeClaim:
-          claimName: argo-score
 
     # -- Additional containers to be added to the repo server pod
     # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/config-management-plugins/
@@ -34,6 +41,3 @@ argo-cd:
           # This enhances security by separating the filesystem from the main repo-server.
           - mountPath: /tmp
             name: cmp-tmp
-
-          - mountPath: /data
-            name: score-data
